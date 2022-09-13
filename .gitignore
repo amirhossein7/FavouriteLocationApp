@@ -1,0 +1,43 @@
+# Mac OS X Finder
+.DS_Store
+
+# Private Keys
+*.pem
+
+# Xcode legacy
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+!default.pbxuser
+# Xcode
+xcuserdata/
+DerivedData/
+*.xccheckout
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.xcuserstate
+*.xcscmblueprint
+.LSOverride
+
+# build products
+build/
+*.[oa]
+
+# repositories
+.hg
+.svn
+CVS
+
+# workspace
+*.xcworkspace
+
+
+# Cocoapods
+Pods/
+Podfile.lock
+
