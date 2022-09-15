@@ -25,5 +25,11 @@
 	<string>UIStatusBarStyleLightContent</string>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>NSLocationUsageDescription</key>
+	<string>You can grant access in order to detect your location. This feature will help you place an order with a more accurate location and also give you more precise ETA.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>You can grant access in order to detect your location. This feature will help you place an order with a more accurate location and also give you more precise ETA.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string></string>
 </dict>
 </plist>

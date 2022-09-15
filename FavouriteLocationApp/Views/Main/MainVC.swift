@@ -149,18 +149,24 @@ class MainViewController: UIViewController {
 private extension MainViewController {
     @objc
     func clickAddLocation() {
-        appState = .chooseLocation
+        
+        if LocationService.shared.isEnableLocation() {
+            appState = .chooseLocation
 
-        DispatchQueue.mainThread { [weak self] in
-            guard let self = self else {return}
-            self.addLocationButton.isHidden = true
-            self.peopleCollectionView.isHidden = true
-            self.emptyLabel.isHidden = true
-            
-            self.nextButton.isHidden = false
-            self.cancelButton.isHidden = false
-            self.centerMarkerButton.isHidden = false
+            DispatchQueue.mainThread { [weak self] in
+                guard let self = self else {return}
+                self.addLocationButton.isHidden = true
+                self.peopleCollectionView.isHidden = true
+                self.emptyLabel.isHidden = true
+                
+                self.nextButton.isHidden = false
+                self.cancelButton.isHidden = false
+                self.centerMarkerButton.isHidden = false
+            }
+        }else {
+            LocationService.shared.gotoEnableLocationSetting("Please Enable your Location")
         }
+
     }
     
     @objc
