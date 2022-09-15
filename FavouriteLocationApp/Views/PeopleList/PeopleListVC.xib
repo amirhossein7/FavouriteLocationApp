@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PeopleListVC" customModule="FavouriteLocationApp" customModuleProvider="target">
+            <connections>
+                <outlet property="addPersonButton" destination="ZV5-CA-cbj" id="3ab-bm-1XU"/>
+                <outlet property="containerView" destination="G99-VZ-RYp" id="SP8-7d-fPr"/>
+                <outlet property="nextButton" destination="R83-5Q-4Aa" id="Nbr-4o-Z6W"/>
+                <outlet property="peopleTableView" destination="8br-Jl-x35" id="L3S-kB-qcz"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R83-5Q-4Aa">
+                    <rect key="frame" x="64" y="664" width="286" height="40"/>
+                    <color key="backgroundColor" name="AccentColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="ahe-tN-yoL"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G99-VZ-RYp">
+                    <rect key="frame" x="32" y="32" width="350" height="600"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8br-Jl-x35">
+                            <rect key="frame" x="10" y="10" width="330" height="580"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </tableView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZV5-CA-cbj">
+                            <rect key="frame" x="268" y="518" width="50" height="50"/>
+                            <color key="backgroundColor" name="AccentColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="O4L-oI-Y2E"/>
+                                <constraint firstAttribute="height" constant="50" id="o8r-Lf-hVJ"/>
+                            </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="+"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="8br-Jl-x35" firstAttribute="leading" secondItem="G99-VZ-RYp" secondAttribute="leading" constant="10" id="9mw-sl-AxC"/>
+                        <constraint firstItem="8br-Jl-x35" firstAttribute="top" secondItem="G99-VZ-RYp" secondAttribute="top" constant="10" id="K1Q-qu-3Vw"/>
+                        <constraint firstAttribute="bottom" secondItem="ZV5-CA-cbj" secondAttribute="bottom" constant="32" id="LJd-cP-lyA"/>
+                        <constraint firstAttribute="bottom" secondItem="8br-Jl-x35" secondAttribute="bottom" constant="10" id="Ur6-r8-beF"/>
+                        <constraint firstAttribute="trailing" secondItem="ZV5-CA-cbj" secondAttribute="trailing" constant="32" id="igA-Ny-3BL"/>
+                        <constraint firstAttribute="trailing" secondItem="8br-Jl-x35" secondAttribute="trailing" constant="10" id="utn-c3-WBc"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemGray5Color"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="G99-VZ-RYp" secondAttribute="trailing" constant="32" id="DO2-6G-oxg"/>
+                <constraint firstItem="G99-VZ-RYp" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="32" id="Qp5-B1-1Zy"/>
+                <constraint firstItem="R83-5Q-4Aa" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="TBM-ys-b5F"/>
+                <constraint firstItem="R83-5Q-4Aa" firstAttribute="top" secondItem="G99-VZ-RYp" secondAttribute="bottom" constant="32" id="Z7f-8y-Z4n"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="R83-5Q-4Aa" secondAttribute="trailing" constant="64" id="bpS-MO-mI7"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="R83-5Q-4Aa" secondAttribute="bottom" constant="32" id="cec-a0-wq6"/>
+                <constraint firstItem="G99-VZ-RYp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="m5Y-lu-YTe"/>
+                <constraint firstItem="R83-5Q-4Aa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="64" id="ucm-ZW-FFh"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="91.304347826086968"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

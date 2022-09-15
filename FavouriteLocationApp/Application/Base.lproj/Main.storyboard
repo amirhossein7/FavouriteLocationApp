@@ -16,18 +16,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AKb-6L-prT">
-                                <rect key="frame" x="56" y="344" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemYellowColor"/>
-                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DNw-KK-Wl5">
+                                <rect key="frame" x="68" y="125" width="240" height="128"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="5UI-ab-2Od"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="dMN-nI-kep"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="DNw-KK-Wl5" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Fqj-Pq-xqT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DNw-KK-Wl5" secondAttribute="trailing" id="NEs-jy-5ab"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DNw-KK-Wl5" secondAttribute="bottom" id="UTP-6X-Cgk"/>
+                            <constraint firstItem="DNw-KK-Wl5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kE8-zK-HoH"/>
+                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="customview" destination="AKb-6L-prT" id="gp3-ig-Ynr"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -37,9 +40,6 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

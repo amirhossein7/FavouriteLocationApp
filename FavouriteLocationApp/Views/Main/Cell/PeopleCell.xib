@@ -20,8 +20,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OYj-hC-QGi">
                         <rect key="frame" x="0.0" y="0.0" width="254" height="50"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8OO-Gc-7aJ">
-                                <rect key="frame" x="10" y="10" width="234" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OO-Gc-7aJ">
+                                <rect key="frame" x="50" y="10" width="154" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -30,11 +30,11 @@
                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="8OO-Gc-7aJ" secondAttribute="bottom" constant="10" id="Og1-IS-JlD"/>
-                            <constraint firstItem="8OO-Gc-7aJ" firstAttribute="leading" secondItem="OYj-hC-QGi" secondAttribute="leading" constant="10" id="dGB-Yx-9LU"/>
+                            <constraint firstItem="8OO-Gc-7aJ" firstAttribute="leading" secondItem="OYj-hC-QGi" secondAttribute="leading" constant="50" id="dGB-Yx-9LU"/>
                             <constraint firstItem="8OO-Gc-7aJ" firstAttribute="top" secondItem="OYj-hC-QGi" secondAttribute="top" constant="10" id="orb-7s-jJc"/>
                             <constraint firstItem="8OO-Gc-7aJ" firstAttribute="centerY" secondItem="OYj-hC-QGi" secondAttribute="centerY" id="qPE-Wn-iRl"/>
                             <constraint firstItem="8OO-Gc-7aJ" firstAttribute="centerX" secondItem="OYj-hC-QGi" secondAttribute="centerX" id="sHi-0S-2s0"/>
-                            <constraint firstAttribute="trailing" secondItem="8OO-Gc-7aJ" secondAttribute="trailing" constant="10" id="ziU-aM-nOa"/>
+                            <constraint firstAttribute="trailing" secondItem="8OO-Gc-7aJ" secondAttribute="trailing" constant="50" id="ziU-aM-nOa"/>
                         </constraints>
                     </view>
                 </subviews>

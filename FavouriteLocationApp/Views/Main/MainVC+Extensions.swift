@@ -32,20 +32,42 @@ extension MainViewController {
             footerView.heightAnchor.constraint(equalToConstant: 100)
         ].forEach{$0.isActive = true}
     }
+    // MARK: - setup parent view for map
+    func setupMapParentView() {
+        mainSuperView.addSubview(mapParentView)
+        mapParentView.translatesAutoresizingMaskIntoConstraints = false
+        [
+            mapParentView.topAnchor.constraint(equalTo: mainSuperView.topAnchor),
+            mapParentView.leadingAnchor.constraint(equalTo: mainSuperView.leadingAnchor),
+            mapParentView.trailingAnchor.constraint(equalTo: mainSuperView.trailingAnchor),
+            mapParentView.bottomAnchor.constraint(equalTo: footerView.topAnchor)
+        ].forEach{$0.isActive = true}
+    }
     // MARK: - setup map
     func setupMapView() {
         let defaultLocation = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
         let child = GoogleMapViewController(self, defaultCoordinate: defaultLocation)
-        add(child: child, in: mainSuperView)
+        add(child: child, in: mapParentView)
         addMapConstraints(child)
     }
     func addMapConstraints(_ child: UIViewController){
         child.view.translatesAutoresizingMaskIntoConstraints = false
         [
-            child.view.topAnchor.constraint(equalTo: mainSuperView.topAnchor),
-            child.view.leadingAnchor.constraint(equalTo: mainSuperView.leadingAnchor),
-            child.view.trailingAnchor.constraint(equalTo: mainSuperView.trailingAnchor),
-            child.view.bottomAnchor.constraint(equalTo: footerView.topAnchor)
+            child.view.topAnchor.constraint(equalTo: mapParentView.topAnchor),
+            child.view.leadingAnchor.constraint(equalTo: mapParentView.leadingAnchor),
+            child.view.trailingAnchor.constraint(equalTo: mapParentView.trailingAnchor),
+            child.view.bottomAnchor.constraint(equalTo: mapParentView.bottomAnchor)
+        ].forEach{$0.isActive = true}
+    }
+    // MARK: - setup center marker
+    func setupCenterMarker() {
+        mapParentView.addSubview(centerMarkerButton)
+        centerMarkerButton.translatesAutoresizingMaskIntoConstraints = false
+        [
+            centerMarkerButton.centerXAnchor.constraint(equalTo: mapParentView.centerXAnchor),
+            centerMarkerButton.centerYAnchor.constraint(equalTo: mapParentView.centerYAnchor, constant: -30),
+            centerMarkerButton.heightAnchor.constraint(equalToConstant: 60),
+            centerMarkerButton.widthAnchor.constraint(equalToConstant: 60)
         ].forEach{$0.isActive = true}
     }
     // MARK: - setup add location button
@@ -59,6 +81,17 @@ extension MainViewController {
             addLocationButton.widthAnchor.constraint(equalToConstant: 50)
         ].forEach{$0.isActive = true}
         addLocationButton.layer.cornerRadius = 25
+    }
+    // MARK: - setup cancel button
+    func setupCancelButton() {
+        mainSuperView.addSubview(cancelButton)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        [
+            cancelButton.topAnchor.constraint(equalTo: mainSuperView.topAnchor, constant: 60),
+            cancelButton.leadingAnchor.constraint(equalTo: mainSuperView.leadingAnchor, constant: 32),
+            cancelButton.heightAnchor.constraint(equalToConstant: 50),
+            cancelButton.widthAnchor.constraint(equalToConstant: 50)
+        ].forEach{$0.isActive = true}
     }
     // MARK: - setup empty label
     func setupEmptyLabel() {
@@ -81,14 +114,16 @@ extension MainViewController {
         ].forEach{$0.isActive = true}
     }
     // MARK: - setup people collection view
-    func setupPeopleCollectionView(){
+    func setupPeopleCollectionView() {
         footerView.addSubview(peopleCollectionView)
         peopleCollectionView.translatesAutoresizingMaskIntoConstraints = false
         [
-            peopleCollectionView.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 10),
-            peopleCollectionView.leadingAnchor.constraint(equalTo: footerView.leadingAnchor),
+            peopleCollectionView.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 10),
             peopleCollectionView.trailingAnchor.constraint(equalTo: footerView.trailingAnchor),
-            peopleCollectionView.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: 10)
+            peopleCollectionView.centerXAnchor.constraint(equalTo: footerView.centerXAnchor),
+            peopleCollectionView.centerYAnchor.constraint(equalTo: footerView.centerYAnchor),
+            peopleCollectionView.heightAnchor.constraint(equalToConstant: 70)
         ].forEach{$0.isActive = true}
     }
+
 }

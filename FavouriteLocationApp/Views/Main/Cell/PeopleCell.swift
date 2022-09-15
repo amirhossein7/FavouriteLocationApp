@@ -10,10 +10,14 @@ import UIKit
 class PeopleCell: UICollectionViewCell {
     
     static let reuseIdentifier = "PeopleCell"
+    static let nibName = "PeopleCell"
     
     @IBOutlet weak var mainView: UIView!{
         didSet{
             mainView.backgroundColor = .lightGray
+            mainView.layer.cornerRadius = 10
+            mainView.layer.borderColor = UIColor.white.cgColor
+            mainView.layer.borderWidth = 1
         }
     }
     
@@ -23,8 +27,13 @@ class PeopleCell: UICollectionViewCell {
         }
     }
     
-    func updateUI(_ model: PersonModel){
-        nameLabel.text = model.name
+    func updateUI(_ model: PeopleCellModel){
+        nameLabel.text = model.person.fullName()
+        if model.isSelected {
+            mainView.backgroundColor = .systemBlue
+        }else {
+            mainView.backgroundColor = .lightGray
+        }
     }
 
     override func awakeFromNib() {
