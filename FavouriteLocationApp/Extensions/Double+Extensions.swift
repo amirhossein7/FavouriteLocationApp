@@ -41,11 +41,11 @@ enum MetricUnit {
     func value() -> String {
         switch self {
         case .miles:
-            return "Miles"
+            return "mile"
         case .kilometers:
-            return "Kilometers"
+            return "Km"
         case .nautical_miles:
-            return "Nautical miles"
+            return "NM"
         }
     }
 }

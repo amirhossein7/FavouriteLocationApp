@@ -19,7 +19,7 @@ protocol BaseMapProtocols : AnyObject {
     // Base
 //    func moveAnimateMapview(_ coord: CLLocationCoordinate2D, _ zoom: Float)
 //    func getTargetMapView() -> CLLocationCoordinate2D
-    func addMarker(coordinate: CLLocationCoordinate2D, distance: Double, metric: String)
+    func addMarker(coordinate: CLLocationCoordinate2D, distance: Double, metric: String, name: String)
 //    func removeMarker(_ model: MarkerModel)
     
     // Details

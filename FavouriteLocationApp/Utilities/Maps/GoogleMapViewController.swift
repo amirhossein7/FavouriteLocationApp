@@ -101,11 +101,11 @@ extension GoogleMapViewController: GMSMapViewDelegate {
 extension GoogleMapViewController: BaseMapProtocols {
     
     
-    func addMarker(coordinate: CLLocationCoordinate2D, distance: Double, metric: String){
+    func addMarker(coordinate: CLLocationCoordinate2D, distance: Double, metric: String, name: String){
         let marker = GMSMarker()
 
-        marker.title = "\(distance)"
-        marker.snippet = metric
+        marker.title = "\(distance.rounded(toPlaces: 2)) \(metric)"
+        marker.snippet = name
         marker.position = coordinate
         marker.isTappable = true
         marker.infoWindowAnchor = CGPoint(x: 0.44, y: 0.45)

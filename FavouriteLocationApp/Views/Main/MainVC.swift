@@ -218,7 +218,7 @@ private extension MainViewController {
     }
     
     func clickOnCollectionViewCell(indexPath: IndexPath) {
-        resetItemSelection()
+//        resetItemSelection()
         let people = peopleArray[indexPath.row]
         peopleArray[indexPath.row].select()
         reloadData()
@@ -226,14 +226,22 @@ private extension MainViewController {
         mapProtocol?.clearMapview()
         
         let myLocation = LocationService.shared.getMyLocation()
-        let locationArray = people.person.locations
-        for loc in locationArray {
-            let metricUnit: MetricUnit = .kilometers
-            let distance = Double.distanceBetweenLocations(lat1: loc.latitude, lon1: loc.longitude, lat2: myLocation.latitude, lon2: myLocation.longitude, unit: metricUnit)
-            mapProtocol?.addMarker(coordinate: loc.getLocation(), distance: distance, metric: metricUnit.value())
+        let metricUnit: MetricUnit = .kilometers
+        let chosenPeopleArray = peopleArray.filter {$0.isSelected}
+        
+        var locationArray: [LocationModel] = []
+        
+        for person in chosenPeopleArray {
+            for loc in person.person.locations {
+                let distance = Double.distanceBetweenLocations(lat1: loc.latitude, lon1: loc.longitude, lat2: myLocation.latitude, lon2: myLocation.longitude, unit: metricUnit)
+                mapProtocol?.addMarker(coordinate: loc.getLocation(), distance: distance, metric: metricUnit.value(), name: people.person.fullName())
+                locationArray.append(loc)
+            }
         }
-                
-        mapProtocol?.fitZoomCamera(locationArray[0].getLocation(), locationArray.map{$0.getLocation()})
+        
+        if locationArray.count > 0 {
+            mapProtocol?.fitZoomCamera(locationArray[0].getLocation(), locationArray.map{$0.getLocation()})
+        }
     }
     
     func resetItemSelection() {
