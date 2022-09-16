@@ -54,9 +54,10 @@ class SizeHandler {
     static func getBottomHeight() -> CGFloat {
         
         if #available(iOS 11.0, *) {
-            return UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0.0
+            return UIApplication.currentUIWindow()?.safeAreaInsets.bottom ?? 0.0
         }
         return 20.0
         
     }
 }
+

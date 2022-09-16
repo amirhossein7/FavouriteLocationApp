@@ -20,7 +20,7 @@ extension String {
     
     func substring(from: Int) -> String {
         let fromIndex = index(from: from)
-        return substring(from: fromIndex)
+        return String(self[fromIndex...])
     }
     
 }

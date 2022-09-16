@@ -27,6 +27,7 @@
 		60331EB828D4582C00D0CA37 /* NotificationCenter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60331EB728D4582C00D0CA37 /* NotificationCenter+Extensions.swift */; };
 		60331EBD28D4B5A200D0CA37 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60331EBC28D4B5A200D0CA37 /* Double+Extensions.swift */; };
 		60331EBF28D4B95800D0CA37 /* SizeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60331EBE28D4B95800D0CA37 /* SizeHandler.swift */; };
+		60331EC228D4BE9300D0CA37 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60331EC128D4BE9300D0CA37 /* UIApplication+Extensions.swift */; };
 		608B305328D04C200068ECEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608B305228D04C200068ECEF /* AppDelegate.swift */; };
 		608B305528D04C200068ECEF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608B305428D04C200068ECEF /* SceneDelegate.swift */; };
 		608B305728D04C200068ECEF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608B305628D04C200068ECEF /* ViewController.swift */; };
@@ -70,6 +71,7 @@
 		60331EB728D4582C00D0CA37 /* NotificationCenter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extensions.swift"; sourceTree = "<group>"; };
 		60331EBC28D4B5A200D0CA37 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		60331EBE28D4B95800D0CA37 /* SizeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeHandler.swift; sourceTree = "<group>"; };
+		60331EC128D4BE9300D0CA37 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		608B304F28D04C200068ECEF /* FavouriteLocationApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FavouriteLocationApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		608B305228D04C200068ECEF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		608B305428D04C200068ECEF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				60331EB528D444BA00D0CA37 /* UIView+Extensions.swift */,
 				60331EB728D4582C00D0CA37 /* NotificationCenter+Extensions.swift */,
 				60331EBC28D4B5A200D0CA37 /* Double+Extensions.swift */,
+				60331EC128D4BE9300D0CA37 /* UIApplication+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				60331EBD28D4B5A200D0CA37 /* Double+Extensions.swift in Sources */,
 				60331EB828D4582C00D0CA37 /* NotificationCenter+Extensions.swift in Sources */,
 				60A27D8228D07D6C00390774 /* MainVC.swift in Sources */,
+				60331EC228D4BE9300D0CA37 /* UIApplication+Extensions.swift in Sources */,
 				608B306E28D056490068ECEF /* PersonModel.swift in Sources */,
 				608B305728D04C200068ECEF /* ViewController.swift in Sources */,
 				6005700C28D2FA6E00C49C19 /* CoreDataManager.swift in Sources */,
