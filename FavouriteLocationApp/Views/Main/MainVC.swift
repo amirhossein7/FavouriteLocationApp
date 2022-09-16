@@ -131,7 +131,11 @@ class MainViewController: UIViewController {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else {return}
             self.peopleArray = self.viewModel.getAllItems()
-            self.reloadData()
+            if self.peopleArray.count > 0 {
+                self.reloadData()
+            }else {
+                self.showEmptyLabel()
+            }
         }
 
     }
@@ -209,6 +213,24 @@ private extension MainViewController {
     func resetItemSelection() {
         for index in 0..<peopleArray.count {
             peopleArray[index].unSelect()
+        }
+    }
+    
+    func showEmptyLabel(){
+        DispatchQueue.mainThread { [weak self] in
+            guard let self = self else {return}
+            self.peopleCollectionView.isHidden = true
+            self.nextButton.isHidden = true
+            self.emptyLabel.isHidden = false
+        }
+    }
+    
+    func dismissEmptyLabel(){
+        DispatchQueue.mainThread { [weak self] in
+            guard let self = self else {return}
+            self.peopleCollectionView.isHidden = false
+            self.nextButton.isHidden = true
+            self.emptyLabel.isHidden = true
         }
     }
 }

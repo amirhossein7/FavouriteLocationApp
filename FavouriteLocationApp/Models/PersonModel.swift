@@ -11,11 +11,11 @@ import Foundation
 struct PersonModel {
     var id: Int
     var firstName: String
-    var sureName: String
+    var lastName: String
     var locations: [LocationModel]
     
     func fullName() -> String {
-        return "\(firstName) \(sureName)"
+        return "\(firstName) \(lastName)"
     }
 }
 

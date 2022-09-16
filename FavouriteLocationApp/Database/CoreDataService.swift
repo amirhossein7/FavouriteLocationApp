@@ -43,16 +43,16 @@ class CoreDataService: DatabaseProtocol {
                 }
                 return locs
             }()
-            let person = PersonModel(id: item.objectID.hash ,firstName: item.firstName ?? "", sureName: item.sureName ?? "", locations: locations)
+            let person = PersonModel(id: item.objectID.hash ,firstName: item.firstName ?? "", lastName: item.lastName ?? "", locations: locations)
             persons.append(person)
         }
         return persons
     }
     
-    func createPerson(firstName: String, sureName: String) {
+    func createPerson(firstName: String, lastName: String) {
         let person = Person(context: context)
         person.firstName = firstName
-        person.sureName = sureName
+        person.lastName = lastName
         
         CoreDataManager.shared.saveContext()
     }

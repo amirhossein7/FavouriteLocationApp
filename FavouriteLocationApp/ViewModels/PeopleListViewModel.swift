@@ -26,8 +26,8 @@ class PeopleListViewModel {
         return peoples
     }
     
-    func createPerson(firstName: String, sureName: String) {
-        database.createPerson(firstName: firstName, sureName: sureName)
+    func createPerson(firstName: String, lastName: String) {
+        database.createPerson(firstName: firstName, lastName: lastName)
     }
     
     func addAddress(person: Person, lat: Double, long: Double) {

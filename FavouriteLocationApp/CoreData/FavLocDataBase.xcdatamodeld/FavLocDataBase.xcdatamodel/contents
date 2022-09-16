@@ -7,7 +7,7 @@
     </entity>
     <entity name="Person" representedClassName="Person" syncable="YES" codeGenerationType="class">
         <attribute name="firstName" attributeType="String"/>
-        <attribute name="sureName" optional="YES" attributeType="String"/>
+        <attribute name="lastName" optional="YES" attributeType="String"/>
         <relationship name="addresses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Address" inverseName="person" inverseEntity="Address"/>
     </entity>
     <elements>
