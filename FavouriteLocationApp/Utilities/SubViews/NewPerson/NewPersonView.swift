@@ -35,6 +35,7 @@ class NewPersonView: UIView {
             firstNameTextField.layer.borderWidth = 2
             firstNameTextField.clipsToBounds = true
             firstNameTextField.layoutIfNeeded()
+            firstNameTextField.delegate = self
         }
     }
     
@@ -53,6 +54,7 @@ class NewPersonView: UIView {
             lastNameTextField.layer.borderWidth = 2
             lastNameTextField.clipsToBounds = true
             lastNameTextField.layoutIfNeeded()
+            lastNameTextField.delegate = self
         }
     }
     
@@ -62,6 +64,10 @@ class NewPersonView: UIView {
             confirmButton.setTitle("Confirm", for: .normal)
         }
     }
+    
+    
+    private var errorInFirtNameFlag: Bool = false
+    private var errorInLastNameFlag: Bool = false
     
     
     override init(frame: CGRect) {
@@ -96,4 +102,44 @@ class NewPersonView: UIView {
         self.view.backgroundColor = .white
     }
 
+}
+
+extension NewPersonView {
+    func errorInFirstName() {
+        errorInFirtNameFlag = true
+        firstNameTextField.layer.borderColor = UIColor.red.cgColor
+    }
+    
+    func errorInLastName() {
+        errorInLastNameFlag = true
+        lastNameTextField.layer.borderColor = UIColor.red.cgColor
+    }
+    
+    func resetTextFileds() {
+        firstNameTextField.text = ""
+        lastNameTextField.text = ""
+    }
+}
+
+extension NewPersonView: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if errorInFirtNameFlag {
+            errorInFirtNameFlag = false
+            firstNameTextField.layer.borderColor = UIColor.black.cgColor
+        }else if errorInLastNameFlag {
+            errorInLastNameFlag = false
+            lastNameTextField.layer.borderColor = UIColor.black.cgColor
+        }
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == firstNameTextField {
+            lastNameTextField.becomeFirstResponder()
+        }else {
+            lastNameTextField.resignFirstResponder()
+        }
+        return true
+    }
 }

@@ -47,7 +47,6 @@ class PeopleListVC: UIViewController {
     
     private lazy var shadowView: UIView = {
         let view = UIView()
-        view.tag = 111
         view.alpha = 0.5
         view.backgroundColor = .black
         view.addTapGesture(tapNumber: 1, target: self, action: #selector(dismissNewPersonSubView))
@@ -66,12 +65,10 @@ class PeopleListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureViewWhenKeyboardUp()
         registerTableView()
         loadData()
-        
     }
-    
     
     private func registerTableView() {
         peopleTableView.register(UINib(nibName: CellPeopleList.nibName, bundle: nil), forCellReuseIdentifier: CellPeopleList.reuseableIdentifier)
@@ -135,7 +132,19 @@ private extension PeopleListVC {
     
     @objc
     func clickConfirmButton() {
-        print("~~~~~~")
+        guard let firstName = self.newPersonView.firstNameTextField.text , firstName != "" else {
+            self.newPersonView.errorInFirstName()
+            return
+        }
+        guard let lastName = self.newPersonView.lastNameTextField.text , lastName != ""  else {
+            self.newPersonView.errorInLastName()
+            return
+        }
+        self.viewModel.createPerson(firstName: firstName, lastName: lastName)
+        
+        self.dismissNewPersonSubView()
+        self.loadData()
+        
     }
     
     @objc
@@ -143,6 +152,7 @@ private extension PeopleListVC {
         DispatchQueue.mainThread { [weak self] in
             guard let self = self else {return}
             self.shadowView.removeFromSuperview()
+            self.newPersonView.resetTextFileds()
             self.newPersonView.removeFromSuperview()
         }
     }
@@ -159,6 +169,22 @@ private extension PeopleListVC {
     }
 }
 
+
+private extension PeopleListVC {
+    
+    func configureViewWhenKeyboardUp(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(sender:)), name: UIResponder.keyboardWillShowNotification, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: UIResponder.keyboardWillHideNotification, object: nil);
+    }
+    
+    @objc func keyboardWillShow(sender: NSNotification) {
+         self.view.frame.origin.y = -150 // Move view 150 points upward
+    }
+
+    @objc func keyboardWillHide(sender: NSNotification) {
+         self.view.frame.origin.y = 0 // Move view to original position
+    }
+}
 
 
 extension PeopleListVC: UITableViewDelegate, UITableViewDataSource {
