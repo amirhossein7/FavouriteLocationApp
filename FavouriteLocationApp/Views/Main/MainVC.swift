@@ -103,14 +103,19 @@ class MainViewController: UIViewController {
     
     private var peopleArray: [PeopleCellModel] = []
     private var appState: AppState = .normal
-    private var currentPosition: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-    let viewModel = MainViewModel()
+    private var chosenLocation: CLLocationCoordinate2D?
+    private let viewModel = MainViewModel()
+    weak var mapProtocol: BaseMapProtocols?
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         createAllLayouts()
         loadData()
+        configureNotificationCenterObservers()
     }
     
     
@@ -127,6 +132,11 @@ class MainViewController: UIViewController {
         setupPeopleCollectionView()
     }
     
+    private func configureNotificationCenterObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: .reloadDataInMainVC, object: nil)
+    }
+    
+    @objc
     private func loadData(){
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else {return}
@@ -166,6 +176,8 @@ private extension MainViewController {
                 self.nextButton.isHidden = false
                 self.cancelButton.isHidden = false
                 self.centerMarkerButton.isHidden = false
+                
+                self.mapProtocol?.clearMapview()
             }
         }else {
             LocationService.shared.gotoEnableLocationSetting("Please Enable your Location")
@@ -177,7 +189,8 @@ private extension MainViewController {
     func clickNextButton() {
         DispatchQueue.mainThread { [weak self] in
             guard let self = self else {return}
-            let vc = PeopleListVC(nibName: PeopleListVC.nibName, bundle: nil)
+            guard let location = self.chosenLocation else {return}
+            let vc = PeopleListVC(chosenLocation: location)
 //            vc.modalTransitionStyle = .coverVertical
 //            vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
@@ -206,8 +219,21 @@ private extension MainViewController {
     
     func clickOnCollectionViewCell(indexPath: IndexPath) {
         resetItemSelection()
+        let people = peopleArray[indexPath.row]
         peopleArray[indexPath.row].select()
         reloadData()
+        
+        mapProtocol?.clearMapview()
+        
+        let myLocation = LocationService.shared.getMyLocation()
+        let locationArray = people.person.locations
+        for loc in locationArray {
+            let metricUnit: MetricUnit = .kilometers
+            let distance = Double.distanceBetweenLocations(lat1: loc.latitude, lon1: loc.longitude, lat2: myLocation.latitude, lon2: myLocation.longitude, unit: metricUnit)
+            mapProtocol?.addMarker(coordinate: loc.getLocation(), distance: distance, metric: metricUnit.value())
+        }
+                
+        mapProtocol?.fitZoomCamera(locationArray[0].getLocation(), locationArray.map{$0.getLocation()})
     }
     
     func resetItemSelection() {
@@ -296,7 +322,7 @@ extension MainViewController: ChildToParentMapProtocol {
     
     func mapCameraIdle(_ position: CLLocationCoordinate2D) {
         if appState == .chooseLocation {
-            currentPosition = position
+            chosenLocation = position
         }
     }
     

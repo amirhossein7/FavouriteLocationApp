@@ -47,6 +47,7 @@ extension MainViewController {
     func setupMapView() {
         let defaultLocation = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
         let child = GoogleMapViewController(self, defaultCoordinate: defaultLocation)
+        mapProtocol = child
         add(child: child, in: mapParentView)
         addMapConstraints(child)
     }

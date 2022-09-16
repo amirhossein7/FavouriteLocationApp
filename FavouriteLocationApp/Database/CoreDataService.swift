@@ -57,13 +57,23 @@ class CoreDataService: DatabaseProtocol {
         CoreDataManager.shared.saveContext()
     }
     
-    func addLocation(person: AnyObject, latitude: Double, longitude: Double) {
-        let address = Address(context: context)
-        address.person = (person as! Person)
-        address.latitude = latitude
-        address.longitude = longitude
+    func addLocation(personsID: [Int], latitude: Double, longitude: Double) {
+        guard let persons = getAllItems() as? [Person] else {
+            Log("~ error in add location")
+            return
+        }
+        for id in personsID {
+            for person in persons {
+                if id == person.objectID.hash {
+                    let address = Address(context: context)
+                    address.person = person
+                    address.latitude = latitude
+                    address.longitude = longitude
+                    CoreDataManager.shared.saveContext()
+                }
+            }
+        }
         
-        CoreDataManager.shared.saveContext()
     }
     
     

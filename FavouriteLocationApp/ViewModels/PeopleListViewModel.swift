@@ -30,7 +30,7 @@ class PeopleListViewModel {
         database.createPerson(firstName: firstName, lastName: lastName)
     }
     
-    func addAddress(person: Person, lat: Double, long: Double) {
-        database.addLocation(person: person, latitude: lat, longitude: long)
+    func addAddress(personsID: [Int], lat: Double, long: Double) {
+        database.addLocation(personsID: personsID, latitude: lat, longitude: long)
     }
 }

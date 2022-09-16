@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+
+extension Notification.Name {
+    
+    static let reloadDataInMainVC = Notification.Name("reload_data_in_main_vc")
+}

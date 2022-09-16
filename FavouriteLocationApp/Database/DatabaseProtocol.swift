@@ -13,6 +13,6 @@ protocol DatabaseProtocol: AnyObject {
     func getAllItems() -> [AnyObject]
     func getAllItemsAsPersonModel() -> [PersonModel]
     func createPerson(firstName: String, lastName: String)
-    func addLocation(person: AnyObject, latitude: Double, longitude: Double)
+    func addLocation(personsID: [Int], latitude: Double, longitude: Double)
     
 }

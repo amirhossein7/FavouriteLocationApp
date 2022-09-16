@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class PeopleListVC: UIViewController {
     
@@ -60,8 +61,18 @@ class PeopleListVC: UIViewController {
         return view
     }()
     
+    private var chosenLocation: CLLocationCoordinate2D
     private var peopleArray: [PeopleCellModel] = []
-    let viewModel = PeopleListViewModel()
+    private let viewModel = PeopleListViewModel()
+    
+    init(chosenLocation: CLLocationCoordinate2D) {
+        self.chosenLocation = chosenLocation
+        super.init(nibName: PeopleListVC.nibName, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,10 +152,9 @@ private extension PeopleListVC {
             return
         }
         self.viewModel.createPerson(firstName: firstName, lastName: lastName)
-        
         self.dismissNewPersonSubView()
         self.loadData()
-        
+        NotificationCenter.default.post(name: .reloadDataInMainVC, object: nil)
     }
     
     @objc
@@ -160,7 +170,17 @@ private extension PeopleListVC {
     
     @objc
     func clickNextButton() {
+        var personsId: [Int] = []
+        peopleArray.forEach { item in
+            if item.isSelected {
+                personsId.append(item.person.id)
+            }
+        }
         
+        viewModel.addAddress(personsID: personsId, lat: Double(chosenLocation.latitude), long: Double(chosenLocation.longitude))
+        self.dismiss(animated: true) {
+            NotificationCenter.default.post(name: .reloadDataInMainVC, object: nil)
+        }
     }
     
     func clickOnTableViewCell(_ indexPath: IndexPath) {
