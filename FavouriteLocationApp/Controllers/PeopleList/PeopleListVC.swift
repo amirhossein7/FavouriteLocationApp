@@ -61,12 +61,11 @@ class PeopleListVC: UIViewController {
         return view
     }()
     
-    private var chosenLocation: CLLocationCoordinate2D
-    private var peopleArray: [CellViewModel] = []
-    private let viewModel = PeopleListViewModel()
+    private let viewModel: MainViewModel
     
-    init(chosenLocation: CLLocationCoordinate2D) {
-        self.chosenLocation = chosenLocation
+    init(viewModel: MainViewModel) {
+        self.viewModel = viewModel
+        self.viewModel.resetAllSelection()
         super.init(nibName: PeopleListVC.nibName, bundle: nil)
     }
     
@@ -74,11 +73,15 @@ class PeopleListVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewWhenKeyboardUp()
         registerTableView()
-        loadData()
+        reloadData()
     }
     
     private func registerTableView() {
@@ -90,8 +93,9 @@ class PeopleListVC: UIViewController {
     private func loadData(){
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else {return}
-            self.peopleArray = self.viewModel.getAllItems()
-            self.reloadData()
+            self.viewModel.reloadData {
+                self.reloadData()
+            }
         }
 
     }
@@ -170,21 +174,29 @@ private extension PeopleListVC {
     
     @objc
     func clickNextButton() {
-        var personsId: [Int] = []
-        peopleArray.forEach { item in
-            if item.isSelected {
-                personsId.append(item.person.id)
+        DispatchQueue.backgroundToMain { [weak self] in
+            guard let self = self else {return}
+            var personIdArray: [Int] = []
+            let chosenLocation = self.viewModel.chosenLocation
+
+            self.viewModel.selectedPeople.forEach { item in
+                personIdArray.append(item.person.id)
+            }
+            
+            self.viewModel.addAddress(personsID: personIdArray, lat: Double(chosenLocation.latitude), long: Double(chosenLocation.longitude))
+        } completion: { [weak self] in
+            guard let self = self else {return}
+            self.dismiss(animated: true) {
+                NotificationCenter.default.post(name: .reloadDataInMainVC, object: nil)
             }
         }
-        
-        viewModel.addAddress(personsID: personsId, lat: Double(chosenLocation.latitude), long: Double(chosenLocation.longitude))
-        self.dismiss(animated: true) {
-            NotificationCenter.default.post(name: .reloadDataInMainVC, object: nil)
-        }
+
+
+
     }
     
     func clickOnTableViewCell(_ indexPath: IndexPath) {
-        peopleArray[indexPath.row].select()
+        viewModel.selectPeople(at: indexPath)
         reloadData()
     }
 }
@@ -214,14 +226,14 @@ extension PeopleListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return peopleArray.count
+        return viewModel.numberOfCells
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: CellPeopleList.reuseableIdentifier, for: indexPath) as? CellPeopleList {
-            if peopleArray.count > 0 && indexPath.row < peopleArray.count {
-                cell.updateUI(peopleArray[indexPath.row])
-            }
+            
+            let model = viewModel.getCellViewModel(at: indexPath)
+            cell.updateUI(model)
             
             return cell
         }else {

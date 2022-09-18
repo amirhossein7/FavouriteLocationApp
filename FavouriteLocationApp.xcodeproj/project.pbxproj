@@ -17,7 +17,6 @@
 		6005701928D36DC000C49C19 /* PeopleListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6005701728D36DC000C49C19 /* PeopleListVC.xib */; };
 		6005701D28D388A700C49C19 /* CellPeopleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005701B28D388A700C49C19 /* CellPeopleList.swift */; };
 		6005701E28D388A700C49C19 /* CellPeopleList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6005701C28D388A700C49C19 /* CellPeopleList.xib */; };
-		6005702028D393E900C49C19 /* PeopleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005701F28D393E900C49C19 /* PeopleListViewModel.swift */; };
 		6005702228D395B000C49C19 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005702128D395B000C49C19 /* UIColor+Extensions.swift */; };
 		6005702428D3962A00C49C19 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005702328D3962A00C49C19 /* String+Extensions.swift */; };
 		6005702628D39C4C00C49C19 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005702528D39C4C00C49C19 /* UIButton+Extensions.swift */; };
@@ -61,7 +60,6 @@
 		6005701728D36DC000C49C19 /* PeopleListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PeopleListVC.xib; sourceTree = "<group>"; };
 		6005701B28D388A700C49C19 /* CellPeopleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPeopleList.swift; sourceTree = "<group>"; };
 		6005701C28D388A700C49C19 /* CellPeopleList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellPeopleList.xib; sourceTree = "<group>"; };
-		6005701F28D393E900C49C19 /* PeopleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleListViewModel.swift; sourceTree = "<group>"; };
 		6005702128D395B000C49C19 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		6005702328D3962A00C49C19 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		6005702528D39C4C00C49C19 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 			isa = PBXGroup;
 			children = (
 				6005700928D2DD3D00C49C19 /* MainViewModel.swift */,
-				6005701F28D393E900C49C19 /* PeopleListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -482,7 +479,6 @@
 			files = (
 				6005703028D3A5AA00C49C19 /* NewPersonView.swift in Sources */,
 				60A27D7428D05B6500390774 /* GoogleMapViewController.swift in Sources */,
-				6005702028D393E900C49C19 /* PeopleListViewModel.swift in Sources */,
 				60A27D8828D0A90D00390774 /* MapsProtocols.swift in Sources */,
 				60A27D9128D0B98200390774 /* PeopleCell.swift in Sources */,
 				60331EBF28D4B95800D0CA37 /* SizeHandler.swift in Sources */,

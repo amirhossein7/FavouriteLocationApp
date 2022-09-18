@@ -186,7 +186,7 @@ private extension MainViewController {
     func clickNextButton() {
         DispatchQueue.mainThread { [weak self] in
             guard let self = self else {return}
-            let vc = PeopleListVC(chosenLocation: self.viewModel.chosenLocation)
+            let vc = PeopleListVC(viewModel: self.viewModel)
 //            vc.modalTransitionStyle = .coverVertical
 //            vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
@@ -214,9 +214,14 @@ private extension MainViewController {
     }
     
     func clickOnCollectionViewCell(indexPath: IndexPath) {
+        // Don't select if any locations doesn't assign to person
+        if viewModel.getCellViewModel(at: indexPath).person.locations.isEmpty {
+            return
+        }
         viewModel.selectPeople(at: indexPath)
         reloadData()
         
+        // remove all marker from the map
         mapProtocol?.clearMapview()
         
         let selectedPeoples = viewModel.selectedPeople

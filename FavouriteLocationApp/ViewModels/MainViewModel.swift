@@ -41,15 +41,6 @@ class MainViewModel {
         peopleArray = getAllItems()
         completion()
     }
-   
-    private func getAllItems() -> [CellViewModel]{
-        var peoples: [CellViewModel] = []
-        database.getAllItemsAsPersonModel().forEach { person in
-            let model = CellViewModel(person: person)
-            peoples.append(model)
-        }
-        return peoples
-    }
     
     func createPerson(firstName: String, lastName: String) {
         database.createPerson(firstName: firstName, lastName: lastName)
@@ -69,6 +60,18 @@ extension MainViewModel {
         }
     }
     
+}
+
+private extension MainViewModel {
+    
+    func getAllItems() -> [CellViewModel]{
+        var peoples: [CellViewModel] = []
+        database.getAllItemsAsPersonModel().forEach { person in
+            let model = CellViewModel(person: person)
+            peoples.append(model)
+        }
+        return peoples
+    }
 }
 
 
