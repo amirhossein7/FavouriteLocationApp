@@ -36,7 +36,7 @@ class CellPeopleList: UITableViewCell {
     }
     
     
-    func updateUI(_ model: PeopleCellModel) {
+    func updateUI(_ model: CellViewModel) {
         nameLabel.text = model.person.fullName()
         if model.isSelected {
             checkImageView.backgroundColor = .green

@@ -62,7 +62,7 @@ class PeopleListVC: UIViewController {
     }()
     
     private var chosenLocation: CLLocationCoordinate2D
-    private var peopleArray: [PeopleCellModel] = []
+    private var peopleArray: [CellViewModel] = []
     private let viewModel = PeopleListViewModel()
     
     init(chosenLocation: CLLocationCoordinate2D) {

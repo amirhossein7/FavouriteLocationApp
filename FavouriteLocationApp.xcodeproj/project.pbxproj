@@ -221,7 +221,7 @@
 			children = (
 				6005701028D3027800C49C19 /* Database */,
 				608B306628D054D30068ECEF /* Application */,
-				608B306928D0553C0068ECEF /* Views */,
+				608B306928D0553C0068ECEF /* Controllers */,
 				608B306828D055330068ECEF /* Models */,
 				608B306A28D055430068ECEF /* ViewModels */,
 				608B306728D054F00068ECEF /* SupportFiles */,
@@ -262,13 +262,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		608B306928D0553C0068ECEF /* Views */ = {
+		608B306928D0553C0068ECEF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				6005701528D36D9200C49C19 /* PeopleList */,
 				60A27D8B28D0B91C00390774 /* Main */,
 			);
-			path = Views;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		608B306A28D055430068ECEF /* ViewModels */ = {

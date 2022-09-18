@@ -27,7 +27,7 @@ class PeopleCell: UICollectionViewCell {
         }
     }
     
-    func updateUI(_ model: PeopleCellModel){
+    func updateUI(_ model: CellViewModel){
         nameLabel.text = model.person.fullName()
         if model.isSelected {
             mainView.backgroundColor = .systemBlue

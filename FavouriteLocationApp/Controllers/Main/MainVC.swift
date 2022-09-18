@@ -8,7 +8,6 @@
 import UIKit
 import CoreLocation
 
-
 fileprivate enum AppState {
     case normal
     case chooseLocation
@@ -101,9 +100,7 @@ class MainViewController: UIViewController {
     
 
     
-    private var peopleArray: [PeopleCellModel] = []
     private var appState: AppState = .normal
-    private var chosenLocation: CLLocationCoordinate2D?
     private let viewModel = MainViewModel()
     weak var mapProtocol: BaseMapProtocols?
     
@@ -140,14 +137,14 @@ class MainViewController: UIViewController {
     private func loadData(){
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else {return}
-            self.peopleArray = self.viewModel.getAllItems()
-            if self.peopleArray.count > 0 {
-                self.reloadData()
-            }else {
-                self.showEmptyLabel()
+            self.viewModel.reloadData {
+                if self.viewModel.numberOfCells > 0 {
+                    self.reloadData()
+                }else {
+                    self.showEmptyLabel()
+                }
             }
         }
-
     }
 
     private func reloadData() {
@@ -189,8 +186,7 @@ private extension MainViewController {
     func clickNextButton() {
         DispatchQueue.mainThread { [weak self] in
             guard let self = self else {return}
-            guard let location = self.chosenLocation else {return}
-            let vc = PeopleListVC(chosenLocation: location)
+            let vc = PeopleListVC(chosenLocation: self.viewModel.chosenLocation)
 //            vc.modalTransitionStyle = .coverVertical
 //            vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
@@ -218,37 +214,31 @@ private extension MainViewController {
     }
     
     func clickOnCollectionViewCell(indexPath: IndexPath) {
-//        resetItemSelection()
-        let people = peopleArray[indexPath.row]
-        peopleArray[indexPath.row].select()
+        viewModel.selectPeople(at: indexPath)
         reloadData()
         
         mapProtocol?.clearMapview()
         
+        let selectedPeoples = viewModel.selectedPeople
         let myLocation = LocationService.shared.getMyLocation()
         let metricUnit: MetricUnit = .kilometers
-        let chosenPeopleArray = peopleArray.filter {$0.isSelected}
         
         var locationArray: [LocationModel] = []
         
-        for person in chosenPeopleArray {
-            for loc in person.person.locations {
+        // Add marker for each location
+        for item in selectedPeoples {
+            for loc in item.person.locations {
                 let distance = Double.distanceBetweenLocations(lat1: loc.latitude, lon1: loc.longitude, lat2: myLocation.latitude, lon2: myLocation.longitude, unit: metricUnit)
-                mapProtocol?.addMarker(coordinate: loc.getLocation(), distance: distance, metric: metricUnit.value(), name: people.person.fullName())
+                mapProtocol?.addMarker(coordinate: loc.getLocation(), distance: distance, metric: metricUnit.value(), name: item.person.fullName())
                 locationArray.append(loc)
             }
         }
-        
+        // Fit camera perspective
         if locationArray.count > 0 {
             mapProtocol?.fitZoomCamera(locationArray[0].getLocation(), locationArray.map{$0.getLocation()})
         }
     }
-    
-    func resetItemSelection() {
-        for index in 0..<peopleArray.count {
-            peopleArray[index].unSelect()
-        }
-    }
+
     
     func showEmptyLabel(){
         DispatchQueue.mainThread { [weak self] in
@@ -278,16 +268,15 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return peopleArray.count
+        return viewModel.numberOfCells
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PeopleCell.reuseIdentifier,
                                                          for: indexPath) as? PeopleCell {
-            if peopleArray.count > 0 && indexPath.row < peopleArray.count {
-                cell.updateUI(peopleArray[indexPath.row])
-            }
+            let model = viewModel.getCellViewModel(at: indexPath)
+            cell.updateUI(model)
             return cell
         }
         else {
@@ -304,7 +293,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         guard let cell: PeopleCell = Bundle.main.loadNibNamed(PeopleCell.nibName,
                                                               owner: self,
                                                               options: nil)?.first as? PeopleCell else { return CGSize.zero }
-        cell.updateUI(peopleArray[indexPath.row])
+        let model = viewModel.getCellViewModel(at: indexPath)
+        cell.updateUI(model)
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
         
@@ -330,7 +320,7 @@ extension MainViewController: ChildToParentMapProtocol {
     
     func mapCameraIdle(_ position: CLLocationCoordinate2D) {
         if appState == .chooseLocation {
-            chosenLocation = position
+            viewModel.chosenLocation = position
         }
     }
     

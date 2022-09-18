@@ -17,10 +17,10 @@ class PeopleListViewModel {
         database = CoreDataService()
     }
     
-    func getAllItems() -> [PeopleCellModel]{
-        var peoples: [PeopleCellModel] = []
+    func getAllItems() -> [CellViewModel]{
+        var peoples: [CellViewModel] = []
         database.getAllItemsAsPersonModel().forEach { person in
-            let model = PeopleCellModel(person: person)
+            let model = CellViewModel(person: person)
             peoples.append(model)
         }
         return peoples
