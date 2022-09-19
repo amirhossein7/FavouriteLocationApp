@@ -61,11 +61,10 @@ class PeopleListVC: UIViewController {
         return view
     }()
     
-    private let viewModel: MainViewModel
+    private let viewModel: MainViewModelProtocol & PeopleListViewModelProtocol
     
-    init(viewModel: MainViewModel) {
-        self.viewModel = viewModel
-        self.viewModel.resetAllSelection()
+    init(location: CLLocationCoordinate2D) {
+        viewModel = AppViewModel(location: location)
         super.init(nibName: PeopleListVC.nibName, bundle: nil)
     }
     
@@ -158,7 +157,11 @@ private extension PeopleListVC {
         self.viewModel.createPerson(firstName: firstName, lastName: lastName)
         self.dismissNewPersonSubView()
         self.loadData()
-        NotificationCenter.default.post(name: .reloadDataInMainVC, object: nil)
+        
+        DispatchQueue.backgroundThread(delay: 0.1) {
+            NotificationCenter.default.post(name: .reloadDataInMainVC, object: nil)
+        }
+
     }
     
     @objc
@@ -179,7 +182,7 @@ private extension PeopleListVC {
             var personIdArray: [Int] = []
             let chosenLocation = self.viewModel.chosenLocation
 
-            self.viewModel.selectedPeople.forEach { item in
+            self.viewModel.selectedPeoples.forEach { item in
                 personIdArray.append(item.person.id)
             }
             
@@ -210,11 +213,11 @@ private extension PeopleListVC {
     }
     
     @objc func keyboardWillShow(sender: NSNotification) {
-         self.view.frame.origin.y = -150 // Move view 150 points upward
+         self.view.frame.origin.y = -150 /// Move view 150 points upward
     }
 
     @objc func keyboardWillHide(sender: NSNotification) {
-         self.view.frame.origin.y = 0 // Move view to original position
+         self.view.frame.origin.y = 0 /// Move view to original position
     }
 }
 
@@ -248,7 +251,7 @@ extension PeopleListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        // color is color press
+        /// color is color press
         if let cell  = tableView.cellForRow(at: indexPath){
             cell.contentView.backgroundColor = UIColor(hex:"FFFFFF")
         }
@@ -256,14 +259,14 @@ extension PeopleListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        // color is color UnPress(first press then few drag)
+        /// color is color UnPress(first press then few drag)
         if let cell  = tableView.cellForRow(at: indexPath){
             cell.contentView.backgroundColor = UIColor(hex:"FFFFFF")
         }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        // color is color ContentView in Cell
+        /// color is color ContentView in Cell
         if let cell  = tableView.cellForRow(at: indexPath){
             cell.contentView.backgroundColor = UIColor(hex:"FFFFFF")
         }

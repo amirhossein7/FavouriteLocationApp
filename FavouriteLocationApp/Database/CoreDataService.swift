@@ -12,7 +12,7 @@ import CoreData
 
 class CoreDataService: DatabaseProtocol {
     
-    let context = CoreDataManager.shared.persistentContainer.viewContext
+    private let context = CoreDataManager.shared.persistentContainer.viewContext
     
     func getAllItems() -> [AnyObject] {
         let personFetch: NSFetchRequest<Person> = Person.fetchRequest()

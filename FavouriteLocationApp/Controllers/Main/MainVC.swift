@@ -101,7 +101,7 @@ class MainViewController: UIViewController {
 
     
     private var appState: AppState = .normal
-    private let viewModel = MainViewModel()
+    private let viewModel: MainViewModelProtocol = AppViewModel()
     weak var mapProtocol: BaseMapProtocols?
     
     deinit {
@@ -135,14 +135,11 @@ class MainViewController: UIViewController {
     
     @objc
     private func loadData(){
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let self = self else {return}
-            self.viewModel.reloadData {
-                if self.viewModel.numberOfCells > 0 {
-                    self.reloadData()
-                }else {
-                    self.showEmptyLabel()
-                }
+        self.viewModel.reloadData {
+            if self.viewModel.numberOfCells > 0 {
+                self.reloadData()
+            }else {
+                self.showEmptyLabel()
             }
         }
     }
@@ -184,13 +181,7 @@ private extension MainViewController {
     
     @objc
     func clickNextButton() {
-        DispatchQueue.mainThread { [weak self] in
-            guard let self = self else {return}
-            let vc = PeopleListVC(viewModel: self.viewModel)
-//            vc.modalTransitionStyle = .coverVertical
-//            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
-        }
+        displayPeopleListView()
     }
     
     @objc
@@ -214,33 +205,42 @@ private extension MainViewController {
     }
     
     func clickOnCollectionViewCell(indexPath: IndexPath) {
-        // Don't select if any locations doesn't assign to person
+        /// Don't select if any locations doesn't assign to person
         if viewModel.getCellViewModel(at: indexPath).person.locations.isEmpty {
             return
         }
         viewModel.selectPeople(at: indexPath)
         reloadData()
         
-        // remove all marker from the map
+        /// remove all marker from the map
         mapProtocol?.clearMapview()
         
-        let selectedPeoples = viewModel.selectedPeople
+        /// Add marker for each location
+        let selectedPeoples = viewModel.selectedPeoples
         let myLocation = LocationService.shared.getMyLocation()
-        let metricUnit: MetricUnit = .kilometers
         
         var locationArray: [LocationModel] = []
         
-        // Add marker for each location
         for item in selectedPeoples {
             for loc in item.person.locations {
-                let distance = Double.distanceBetweenLocations(lat1: loc.latitude, lon1: loc.longitude, lat2: myLocation.latitude, lon2: myLocation.longitude, unit: metricUnit)
-                mapProtocol?.addMarker(coordinate: loc.getLocation(), distance: distance, metric: metricUnit.value(), name: item.person.fullName())
+                let distance = loc.getDistance(from: myLocation, metric: .kilometers)
+                mapProtocol?.addMarker(coordinate: loc.getLocation(), distance: distance.value, metric: distance.metric, name: item.person.fullName())
                 locationArray.append(loc)
             }
         }
-        // Fit camera perspective
+        /// Fit camera perspective
         if locationArray.count > 0 {
             mapProtocol?.fitZoomCamera(locationArray[0].getLocation(), locationArray.map{$0.getLocation()})
+        }
+    }
+    
+    func displayPeopleListView() {
+        DispatchQueue.mainThread { [weak self] in
+            guard let self = self else {return}
+            let vc = PeopleListVC(location: self.viewModel.chosenLocation)
+//            vc.modalTransitionStyle = .coverVertical
+//            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
         }
     }
 
@@ -290,7 +290,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
     }
     
-    //Set dynamic size for width
+    /// Set dynamic size for width
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -313,11 +313,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
 }
 
-//MARK: - ScrollView Delegate
-extension MainViewController: UIScrollViewDelegate {
-}
 
-
+//MARK: - Map Delegate
 extension MainViewController: ChildToParentMapProtocol {
     func mapDidChange() {
         
@@ -325,7 +322,7 @@ extension MainViewController: ChildToParentMapProtocol {
     
     func mapCameraIdle(_ position: CLLocationCoordinate2D) {
         if appState == .chooseLocation {
-            viewModel.chosenLocation = position
+            viewModel.updateChosenLocation(location: position)
         }
     }
     

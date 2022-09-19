@@ -27,6 +27,12 @@ extension DispatchQueue {
         }
     }
     
+    static func backgroundThread(delay: Double = 0.0, work: @escaping () -> ()) {
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: DispatchTime.now() + delay, execute: {
+            work()
+        })
+    }
+    
     static func mainThread(work: @escaping () -> ()) {
         DispatchQueue.main.async(execute: {
             work()
