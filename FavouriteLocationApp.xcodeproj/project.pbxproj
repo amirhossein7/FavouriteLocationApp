@@ -664,6 +664,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6N993LX47C;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FavouriteLocationApp/SupportFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Fav Loc";
@@ -695,6 +696,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6N993LX47C;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FavouriteLocationApp/SupportFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Fav Loc";
