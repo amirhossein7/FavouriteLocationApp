@@ -17,11 +17,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        GoogleMapService.apiKeyConfiguration()
-        mapView = GoogleMapService.generateMapView(self)
-        self.view.addSubview(mapView)
-        
-        self.view.bringSubviewToFront(customview)
     }
 
 
