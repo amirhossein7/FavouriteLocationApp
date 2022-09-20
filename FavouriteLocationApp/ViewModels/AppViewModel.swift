@@ -14,6 +14,7 @@ protocol MainViewModelProtocol: AnyObject {
     var chosenLocation: CLLocationCoordinate2D {get}
     
     func selectPeople(at indexPath: IndexPath)
+    func deletePeople(at indexPath: IndexPath)
     func getCellViewModel(at indexPath: IndexPath) -> CellViewModel
     func reloadData(completion: () -> ())
     
@@ -59,6 +60,10 @@ extension AppViewModel: MainViewModelProtocol {
     
     func selectPeople(at indexPath: IndexPath) {
         peopleArray[indexPath.row].select()
+    }
+    
+    func deletePeople(at indexPath: IndexPath) {
+        database.deletePerson(model: peopleArray[indexPath.row].person)
     }
     
     func getCellViewModel(at indexPath: IndexPath) -> CellViewModel {

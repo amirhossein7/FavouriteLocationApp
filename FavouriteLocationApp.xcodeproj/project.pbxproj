@@ -130,8 +130,9 @@
 		6005700828D2DA6D00C49C19 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				6005700528D2DA6600C49C19 /* FavLocDataBase.xcdatamodeld */,
+				6005701128D3028A00C49C19 /* CoreDataService.swift */,
 				6005700B28D2FA6E00C49C19 /* CoreDataManager.swift */,
+				6005700528D2DA6600C49C19 /* FavLocDataBase.xcdatamodeld */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -139,8 +140,8 @@
 		6005701028D3027800C49C19 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				6005700828D2DA6D00C49C19 /* CoreData */,
 				6005700E28D301C000C49C19 /* DatabaseProtocol.swift */,
-				6005701128D3028A00C49C19 /* CoreDataService.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -219,7 +220,6 @@
 		608B305128D04C200068ECEF /* FavouriteLocationApp */ = {
 			isa = PBXGroup;
 			children = (
-				6005701028D3027800C49C19 /* Database */,
 				608B306628D054D30068ECEF /* Application */,
 				608B306928D0553C0068ECEF /* Controllers */,
 				608B306828D055330068ECEF /* Models */,
@@ -227,7 +227,7 @@
 				608B306728D054F00068ECEF /* SupportFiles */,
 				608B307128D058960068ECEF /* Utilities */,
 				60A27D8428D0A43300390774 /* Extensions */,
-				6005700828D2DA6D00C49C19 /* CoreData */,
+				6005701028D3027800C49C19 /* Database */,
 				608B305B28D04C220068ECEF /* Assets.xcassets */,
 			);
 			path = FavouriteLocationApp;

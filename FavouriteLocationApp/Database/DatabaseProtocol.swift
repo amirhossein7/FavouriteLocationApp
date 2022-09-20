@@ -14,5 +14,7 @@ protocol DatabaseProtocol: AnyObject {
     func getAllItemsAsPersonModel() -> [PersonModel]
     func createPerson(firstName: String, lastName: String)
     func addLocation(personsID: [Int], latitude: Double, longitude: Double)
+    func getPerson(model: PersonModel) throws -> PersonModel
+    func deletePerson(model: PersonModel)
     
 }

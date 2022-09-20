@@ -76,5 +76,52 @@ class CoreDataService: DatabaseProtocol {
         
     }
     
+    func getPerson(model: PersonModel) throws -> PersonModel{
+        do {
+            let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
+            fetchRequest.fetchLimit = 1
+            fetchRequest.predicate = NSPredicate(format: "firstName == %@", model.firstName)
+            let objects = try context.fetch(fetchRequest)
+            let objc = objects.first { person in
+                person.objectID.hash == model.id
+            }
+            guard let objc = objc else {
+                throw NSError()
+            }
+            guard let locs = objc.addresses?.allObjects as? [Address] else {throw NSError()}
+            let personLocs = locs.map { addr in
+                LocationModel(latitude: addr.latitude , longitude: addr.longitude)
+            }
+            return PersonModel(id: objc.objectID.hash, firstName: objc.firstName ?? "", lastName: objc.lastName ?? "", locations: personLocs)
+
+            
+        }catch {
+            Log("Error in getPerson: \(error.localizedDescription)")
+            let error = NSError()
+            throw error
+        }
+    }
     
+    
+    func deletePerson(model: PersonModel) {
+        do {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
+            fetchRequest.fetchLimit = 1
+            fetchRequest.predicate = NSPredicate(format: "firstName == %@", model.firstName)
+            guard let objects = try context.fetch(fetchRequest) as? [Person] else { throw NSError()}
+            let objc = objects.first { person in
+                person.objectID.hash == model.id
+            }
+            guard let objc = objc else {
+                throw NSError()
+            }
+          
+            context.delete(objc)
+            
+            CoreDataManager.shared.saveContext()
+            
+        }catch {
+            Log("Error in deletePerson")
+        }
+    }
 }
