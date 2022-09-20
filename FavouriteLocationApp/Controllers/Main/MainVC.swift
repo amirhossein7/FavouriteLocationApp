@@ -112,10 +112,21 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createAllLayouts()
-        loadData()
+        setupBinders()
+//        loadData()
         configureNotificationCenterObservers()
     }
     
+    private func setupBinders() {
+        viewModel.peopleArray.bind { [weak self] _ in
+            guard let self = self else {return}
+            if self.viewModel.numberOfCells > 0 {
+                self.reloadData()
+            }else {
+                self.showEmptyLabel()
+            }
+        }
+    }
     
     private func createAllLayouts(){
         setupMainSuperView()
@@ -136,13 +147,7 @@ class MainViewController: UIViewController {
     
     @objc
     private func loadData(){
-        self.viewModel.reloadData {
-            if self.viewModel.numberOfCells > 0 {
-                self.reloadData()
-            }else {
-                self.showEmptyLabel()
-            }
-        }
+        viewModel.reloadData()
     }
 
     private func reloadData() {

@@ -80,7 +80,16 @@ class PeopleListVC: UIViewController {
         super.viewDidLoad()
         configureViewWhenKeyboardUp()
         registerTableView()
-        reloadData()
+        setupBinders()
+
+//        reloadData()
+    }
+    
+    private func setupBinders() {
+        viewModel.peopleArray.bind { [weak self] _ in
+            guard let self = self else {return}
+            self.reloadData()
+        }
     }
     
     private func registerTableView() {
@@ -92,9 +101,7 @@ class PeopleListVC: UIViewController {
     private func loadData(){
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else {return}
-            self.viewModel.reloadData {
-                self.reloadData()
-            }
+            self.viewModel.reloadData()
         }
 
     }

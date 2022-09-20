@@ -9,6 +9,7 @@ import Foundation
 import CoreLocation
 
 protocol MainViewModelProtocol: AnyObject {
+    var peopleArray: ObservableObject<[CellViewModel]> {get}
     var numberOfCells: Int {get}
     var selectedPeoples: [CellViewModel] {get}
     var chosenLocation: CLLocationCoordinate2D {get}
@@ -16,7 +17,7 @@ protocol MainViewModelProtocol: AnyObject {
     func selectPeople(at indexPath: IndexPath)
     func deletePeople(at indexPath: IndexPath)
     func getCellViewModel(at indexPath: IndexPath) -> CellViewModel
-    func reloadData(completion: () -> ())
+    func reloadData()
     
     func updateChosenLocation(location: CLLocationCoordinate2D)
 }
@@ -31,14 +32,14 @@ class AppViewModel {
         
     var database: DatabaseProtocol
     
-    private var peopleArray: [CellViewModel] = []
+    var peopleArray: ObservableObject<[CellViewModel]> = ObservableObject([])
     private var location: CLLocationCoordinate2D
     
     
     init(location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)) {
         database = CoreDataService()
         self.location = location
-        peopleArray = getAllItems()
+        reloadData()
     }
  
 }
@@ -51,28 +52,27 @@ extension AppViewModel: MainViewModelProtocol {
     }
     
     var numberOfCells: Int {
-        return peopleArray.count
+        return peopleArray.value.count
     }
     
     var selectedPeoples: [CellViewModel] {
-        return peopleArray.filter {$0.isSelected}
+        return peopleArray.value.filter {$0.isSelected}
     }
     
     func selectPeople(at indexPath: IndexPath) {
-        peopleArray[indexPath.row].select()
+        peopleArray.value[indexPath.row].select()
     }
     
     func deletePeople(at indexPath: IndexPath) {
-        database.deletePerson(model: peopleArray[indexPath.row].person)
+        database.deletePerson(model: peopleArray.value[indexPath.row].person)
     }
     
     func getCellViewModel(at indexPath: IndexPath) -> CellViewModel {
-        return peopleArray[indexPath.row]
+        return peopleArray.value[indexPath.row]
     }
     
-    func reloadData(completion: () -> ()) {
-        peopleArray = getAllItems()
-        completion()
+    func reloadData() {
+        peopleArray.value = getAllItems()
     }
     
     func updateChosenLocation(location: CLLocationCoordinate2D) {
@@ -80,8 +80,8 @@ extension AppViewModel: MainViewModelProtocol {
     }
     
     func resetAllSelection() {
-        for index in 0..<peopleArray.count {
-            peopleArray[index].unSelect()
+        for index in 0..<peopleArray.value.count {
+            peopleArray.value[index].unSelect()
         }
     }
 
