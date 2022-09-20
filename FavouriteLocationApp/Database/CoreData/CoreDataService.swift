@@ -107,7 +107,7 @@ class CoreDataService: DatabaseProtocol {
         do {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
             fetchRequest.fetchLimit = 1
-            fetchRequest.predicate = NSPredicate(format: "firstName == %@", model.firstName)
+            fetchRequest.predicate = NSPredicate(format: "firstName == %@ AND lastName = %@", model.firstName, model.lastName)
             guard let objects = try context.fetch(fetchRequest) as? [Person] else { throw NSError()}
             let objc = objects.first { person in
                 person.objectID.hash == model.id

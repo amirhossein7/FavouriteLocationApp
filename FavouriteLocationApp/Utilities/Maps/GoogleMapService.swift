@@ -18,3 +18,8 @@ class GoogleMapService {
         GMSPlacesClient.provideAPIKey(apiKey)
     }
 }
+
+enum MapState {
+    case moving
+    case idle
+}

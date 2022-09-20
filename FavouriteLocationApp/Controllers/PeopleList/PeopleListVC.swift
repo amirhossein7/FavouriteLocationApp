@@ -200,9 +200,7 @@ private extension PeopleListVC {
     
     func clickOnTableViewCell(_ indexPath: IndexPath) {
         viewModel.selectPeople(at: indexPath)
-        viewModel.reloadData {
-            reloadData()
-        }
+        reloadData()
     }
 }
 

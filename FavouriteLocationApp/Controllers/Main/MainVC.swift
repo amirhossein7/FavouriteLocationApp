@@ -101,6 +101,7 @@ class MainViewController: UIViewController {
 
     
     private var appState: AppState = .normal
+    private var mapState: MapState = .idle
     private let viewModel: MainViewModelProtocol = AppViewModel()
     weak var mapProtocol: BaseMapProtocols?
     
@@ -181,7 +182,9 @@ private extension MainViewController {
     
     @objc
     func clickNextButton() {
-        displayPeopleListView()
+        if mapState == .idle {
+            displayPeopleListView()
+        }
     }
     
     @objc
@@ -323,11 +326,14 @@ extension MainViewController: ChildToParentMapProtocol {
     func mapCameraIdle(_ position: CLLocationCoordinate2D) {
         if appState == .chooseLocation {
             viewModel.updateChosenLocation(location: position)
+            mapState = .idle
         }
     }
     
     func mapWillMove() {
-        
+        if appState == .chooseLocation {
+            mapState = .moving
+        }
     }
     
 }
