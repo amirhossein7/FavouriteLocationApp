@@ -8,12 +8,12 @@
 import Foundation
 
 public func Log<T>(_ object: T?, filename: String = #file, line: Int = #line, funcname: String = #function) {
-    // #if DEBUG
+    #if DEBUG
         guard let object = object else { return }
         var log = String()
         log.append("──────────────────────   LOG   ──────────────────────\n")
-    log.append("> \(filename.components(separatedBy: "/").last ?? "") -> \(funcname) -> (line: \(line)) :: (MainThread: \(Thread.current.isMainThread)) \n")
+        log.append("> \(filename.components(separatedBy: "/").last ?? "") -> \(funcname) -> (line: \(line)) :: (MainThread: \(Thread.current.isMainThread)) \n")
         log.append("\(object)\n")
         print(log)
-    // #endif
+    #endif
 }

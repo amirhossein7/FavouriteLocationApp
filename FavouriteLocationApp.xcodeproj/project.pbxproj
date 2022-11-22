@@ -48,6 +48,7 @@
 		60A27D8A28D0B14700390774 /* MainVC+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A27D8928D0B14700390774 /* MainVC+Helper.swift */; };
 		60A27D9128D0B98200390774 /* PeopleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A27D8F28D0B98200390774 /* PeopleCell.swift */; };
 		60A27D9228D0B98200390774 /* PeopleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A27D9028D0B98200390774 /* PeopleCell.xib */; };
+		60A63277292CC3C800E1A2B9 /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = 60A63276292CC0D700E1A2B9 /* style.json */; };
 		628617277BF15D28478EC200 /* Pods_FavouriteLocationApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE7C7FAE4BC478CDC5756F8 /* Pods_FavouriteLocationApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,7 @@
 		60A27D8928D0B14700390774 /* MainVC+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+Helper.swift"; sourceTree = "<group>"; };
 		60A27D8F28D0B98200390774 /* PeopleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCell.swift; sourceTree = "<group>"; };
 		60A27D9028D0B98200390774 /* PeopleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PeopleCell.xib; sourceTree = "<group>"; };
+		60A63276292CC0D700E1A2B9 /* style.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
 		6F41BB6B6B72294D6472DED9 /* Pods-FavouriteLocationApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FavouriteLocationApp.release.xcconfig"; path = "Target Support Files/Pods-FavouriteLocationApp/Pods-FavouriteLocationApp.release.xcconfig"; sourceTree = "<group>"; };
 		8DE7C7FAE4BC478CDC5756F8 /* Pods_FavouriteLocationApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FavouriteLocationApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F64DE8504DBB873C845FAF /* Pods-FavouriteLocationApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FavouriteLocationApp.debug.xcconfig"; path = "Target Support Files/Pods-FavouriteLocationApp/Pods-FavouriteLocationApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				60A27D7328D05B6500390774 /* GoogleMapViewController.swift */,
 				60A27D7E28D064C900390774 /* GoogleMapService.swift */,
 				60A27D8728D0A90D00390774 /* MapsProtocols.swift */,
+				60A63276292CC0D700E1A2B9 /* style.json */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				6005701E28D388A700C49C19 /* CellPeopleList.xib in Resources */,
 				6005703228D3A5B500C49C19 /* NewPersonView.xib in Resources */,
 				60A27D9228D0B98200390774 /* PeopleCell.xib in Resources */,
+				60A63277292CC3C800E1A2B9 /* style.json in Resources */,
 				608B305F28D04C220068ECEF /* LaunchScreen.storyboard in Resources */,
 				6005701928D36DC000C49C19 /* PeopleListVC.xib in Resources */,
 				608B305C28D04C220068ECEF /* Assets.xcassets in Resources */,
@@ -667,7 +671,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6N993LX47C;
+				DEVELOPMENT_TEAM = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FavouriteLocationApp/SupportFiles/Info.plist;
@@ -699,7 +703,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6N993LX47C;
+				DEVELOPMENT_TEAM = "";
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;

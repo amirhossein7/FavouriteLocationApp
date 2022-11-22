@@ -88,7 +88,6 @@ extension GoogleMapViewController: GMSMapViewDelegate {
     }
 
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        Log("idleAt")
         parentDelegate.mapCameraIdle(position.target)
     }
 
